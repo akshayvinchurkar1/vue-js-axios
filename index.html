@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  
+  <div id="app">
+      <p v-for="user in users">
+        {{user.id}}&nbsp;{{ user.title }}<br />{{ user.body }}
+      </p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.0/axios.min.js"></script>
+  
+  <script type="text/javascript">
+      new Vue({
+        el: '#app',
+
+        data: {
+           users: []
+        },
+        
+        created() {
+          var root = 'https://jsonplaceholder.typicode.com';
+          axios.get(root + '/posts').then(response => {
+              this.users = response.data;
+          }).catch(e => {
+              this.errors.push(e);
+          });
+        }
+        
+      });
+  </script>
+
+</body>
+</html>
